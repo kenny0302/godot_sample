@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://crcq0xbqf8ixp"]
+[gd_scene load_steps=8 format=3 uid="uid://crcq0xbqf8ixp"]
 
 [ext_resource type="Script" path="res://MazeGenerator.gd" id="1"]
 [ext_resource type="Script" path="res://Player.gd" id="2"]
 [ext_resource type="Script" path="res://PathTracker.gd" id="3"]
 [ext_resource type="Script" path="res://Minimap.gd" id="4"]
 [ext_resource type="Script" path="res://GameManager.gd" id="5"]
+[ext_resource type="Script" path="res://WebHint.gd" id="6"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.5
@@ -47,3 +48,12 @@ script = ExtResource("5")
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("4")
+
+[node name="WebHint" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6")

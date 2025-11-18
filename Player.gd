@@ -9,11 +9,25 @@ extends CharacterBody3D
 @onready var path_tracker = get_node("/root/Main/PathTracker")
 
 var rotation_x: float = 0.0
+var mouse_captured: bool = false
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# 在Web平台上，不要立即捕获鼠标，需要用户点击
+	if OS.has_feature("web"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		mouse_captured = false
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		mouse_captured = true
 
 func _input(event):
+	# Web平台：点击屏幕捕获鼠标
+	if OS.has_feature("web") and event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				mouse_captured = true
+
 	# 鼠标视角控制
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
@@ -26,8 +40,10 @@ func _input(event):
 		if event.keycode == KEY_ESCAPE:
 			if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				mouse_captured = false
 			else:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+				mouse_captured = true
 
 func _physics_process(delta):
 	# 重力
