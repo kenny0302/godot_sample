@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://crcq0xbqf8ixp"]
+
+[ext_resource type="Script" path="res://MazeGenerator.gd" id="1"]
+[ext_resource type="Script" path="res://Player.gd" id="2"]
+[ext_resource type="Script" path="res://PathTracker.gd" id="3"]
+[ext_resource type="Script" path="res://Minimap.gd" id="4"]
+[ext_resource type="Script" path="res://GameManager.gd" id="5"]
+
+[sub_resource type="CapsuleShape3D" id="1"]
+radius = 0.5
+height = 1.8
+
+[node name="Main" type="Node3D"]
+
+[node name="MazeGenerator" type="Node3D" parent="."]
+script = ExtResource("1")
+maze_width = 15
+maze_height = 15
+cell_size = 4.0
+wall_height = 3.0
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+script = ExtResource("2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("1")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+fov = 75.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 0)
+shadow_enabled = true
+
+[node name="PathTracker" type="Node" parent="."]
+script = ExtResource("3")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Minimap" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("4")
