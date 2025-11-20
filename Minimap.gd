@@ -41,10 +41,10 @@ func create_minimap():
 	# 设置控件为全屏
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 
-	# 创建半透明黑色背景
+	# 创建透明黑色背景（不透明度10%）
 	background = ColorRect.new()
 	background.name = "Background"
-	background.color = Color(0, 0, 0, 0.85)
+	background.color = Color(0, 0, 0, 0.1)
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(background)
 
