@@ -86,12 +86,12 @@ func create_minimap():
 
 	minimap_texture = ImageTexture.create_from_image(minimap_image)
 
-	# 创建显示节点 - 居中显示
+	# 创建显示节点 - 满版显示
 	texture_rect = TextureRect.new()
 	texture_rect.name = "MinimapDisplay"
 	texture_rect.texture = minimap_texture
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	texture_rect.stretch_mode = TextureRect.STRETCH_SCALE
 	texture_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(texture_rect)
 
