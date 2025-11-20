@@ -27,24 +27,15 @@ func _ready():
 		path_tracker.path_updated.connect(_on_path_updated)
 
 func _input(event):
-	# M键打开小地图
+	# M键切换小地图开关
 	if event.is_action_pressed("toggle_minimap"):
-		if not is_visible:
-			open_minimap()
+		toggle_minimap()
 
-	# Q键关闭小地图
-	if event.is_action_pressed("close_minimap"):
-		if is_visible:
-			close_minimap()
-
-func open_minimap():
-	is_visible = true
-	visible = true
-	update_minimap()
-
-func close_minimap():
-	is_visible = false
-	visible = false
+func toggle_minimap():
+	is_visible = not is_visible
+	visible = is_visible
+	if is_visible:
+		update_minimap()
 
 func create_minimap():
 	# 设置控件为全屏
@@ -106,7 +97,7 @@ func create_minimap():
 
 	# 添加提示文字
 	hint_label = Label.new()
-	hint_label.text = "按 Q 键关闭地图"
+	hint_label.text = "按 M 键关闭地图"
 	hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	hint_label.add_theme_font_size_override("font_size", 24)
 	hint_label.set_anchors_preset(Control.PRESET_CENTER_TOP)
